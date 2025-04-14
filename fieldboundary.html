@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Risk Mapping Tool Development</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+		  
+			.dropcap {
+			  color: #777;
+			  font-size: 1.1em;
+			  text-align: left;
+			}
+		  
+			.dropcap::first-letter {
+			  float: left;
+			  font-size: 2.5em;
+			  line-height: 0.5;
+			  padding-right: 6px;
+			  font-weight: bold;
+			  color: inherit;
+			  font-family: 'Playfair Display', serif; /* Fancy font for just the S */
+			}
+		  </style>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main0.css" />
+		<body class="is-preload">
+
+			<div id="body-container">
+
+			<!-- Wrapper -->
+
+
+					<!-- Main -->
+						<div id="main">
+							<div class="inner">
+								<!-- Content -->
+									<section>
+										<header>
+											<a href="index.html" class="button">Back</a>
+
+											</br>
+											</br>
+											<h1 style="color: black font-weight: 300;" align="center">
+												Mapping Every Crop Field on the Ground — A Foundation for Policy and Smart Agriculture
+											</h1>
+										</header>
+
+										<p id="last-modified" style="font-size: 1.2em; color: #666;"></p>
+
+										<script>
+										  const modified = new Date(document.lastModified);
+										  const formattedDate = modified.toLocaleDateString(undefined, {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric'
+										  });
+										  document.getElementById("last-modified").textContent = "Last updated: " + formattedDate;
+										</script>
+                    <!-- <a href="https://github.com/Clark-Labs/Risk_Map">GitHub repository: Clark-Labs/Risk_Map</a> -->
+									  <span class="image main"><img src="images/sx_fieldmapping_thumb_v4.png" alt="" /></span>
+                    <!-- <a href="https://github.com/ClarkCGA/UDef-ARP"class="button1" title="GitHub repository link"><img src="images/git.png" style= "height: 2.5em;"/></a> -->
+
+									</br>
+									</br>
+
+					                  <span class="image main"><img src="images/sx_fb_img0.png" alt="" /></span>
+
+
+
+										<p class="dropcap" style="color: #222222; font-size: 1.3em; text-align: left;"> 
+											Soon, we’ll be able to identify every single crop field on Earth from the sky—from smallholder 
+											plots to large commercial center-pivot circles. Detailed field boundary maps play a crucial role 
+											in sustainable development planning. Huge efforts have gone into generating these maps, and more 
+											institutions are now adopting them for a wide range of uses—from risk assessment and carbon 
+											tracking to agricultural surveys and precision farming.</p>
+										<p style="color: #222222; font-size: 1.3em; text-align: left;">
+											Here, I present how field boundary data can help address food security issues in Zambia, where 
+											the rapid expansion of medium-sized farms in the tropical savanna brings new opportunities—along 
+											with complex environmental and socioeconomic challenges.
+											This work is funded by NASA and NSF under the supervision of 
+											<a href="https://agroimpacts.info/" target="_blank"><span style="font-weight: bold;">Agroimpact Research Group (AIRG)</span> </a>, 
+											where I contributed as a research assistant. For technical details and publications, please visit AIRG. Also acknoelrdge the 
+											partnership of Zambia Agriculture Research Institude (ZARI) and 
+											</p>
+ <hr class="major" />
+	<h2 style="color:#e48bae;">Part 1: How Could Individual Fields Be Identified from Satellite?</h2>
+			<p style="color: #222222; font-size: 1.3em; text-align: left;"> We now have more openly archived, high spatial–temporal resolution imagery to cover the world.
+				We have many AI variants that do computer vision tasks better, helping to identify objects in imagery.
+				We have more powerful Graphics Processing Units (GPUs) to boost computation.
+				We also have more labeled datasets, which make it easier to train accurate models.
+				And we now have a growing ecosystem of open-source libraries and programming languages 
+				that make geospatial analysis and deep learning more accessible than ever.
+			
+			
+			
+			</p>
+
+              <span class="image main"><img src="images/sx_fb_img1.png" alt="" /></span>
+
+			<p>*The U-Net architecture in the upper right of the above image is from 
+				García Rodríguez, C., Vitrià, J., & Mora, O. (2020). 
+				Uncertainty-based human-in-the-loop deep learning for land cover segmentation. 
+				Remote Sensing, 12(22), 3836.</p>
+			  
+
+
+
+			  <span class="image main" style="display: block; margin-bottom: 0;">
+				<img src="images/sx_fb_anim1.gif" alt="" style="display: block; margin: 0; padding: 0;" />
+			  </span>
+			  
+			  <p style="color: #222222; font-size: 1.3em; text-align: left; margin-top: 0;">
+				As the algorithm (U-Net, in this case) continues training over multiple epochs, the model progressively learns 
+				to recognize features of crop fields and can identify similar patterns (blue) in previously unseen imagery.
+			  </p>
+
+	<hr class="major" />
+	<h2 style="color:#e48bae;">Part 2: Identify Crop Field Variation size in Zambia</h2>
+	<p style="color: #222222; font-size: 1.3em; text-align: left;"> 
+		We mapped every crop field in Zambia (D) and used examples of smallholder (A), medium-sized (B),
+		 and large commercial farms (C) to illustrate the variation in field sizes. 
+		 In several land-abundant countries, the typical ratio of small, medium, and 
+		 large farms is expected to be around 50:40:10 (E), and we anticipate that the 
+		 share of medium-sized farms in Zambia will continue to expand.
+	</p>
+	
+	<span class="image main" style="display: block; margin-bottom: 0;">
+		<img src="images/sx_fb_img2_v2.png" alt="" style="display: block; margin: 0; padding: 0;" />
+		</span>
+	
+
+	<p style="color: #222222; font-size: 1.3em; text-align: left; margin-top: 3.5em;"> 
+		To better describe the spatial patterns of farming scales, we summarized the share 
+		of area under small, medium, and large farms within 5×5 km resolution pixels and 
+		identified the dominant farming scale for each pixel across the nation. This analysis 
+		highlights the following patterns:
+	</p>
+	<ul style="color: #222222; font-size: 1.3em; text-align: left; margin-top: 0; margin-bottom: 0.5em; padding-left: 1.5em;">
+		<li>
+			Prevalence of smallholder, shifting agriculture in the northern and northeastern parts of the country, including Northern, Muchinga, and Luapula provinces.
+		</li>
+		<li>
+			Concentration of medium and large-scale farms in the Copperbelt and Central provinces, particularly near major highways and infrastructure corridors.
+		</li>
+		<li>
+			Additional clusters of medium-sized farms in parts of the northwestern and southwestern regions, reflecting expansion of medium-scale agriculture.
+		</li>
+	</ul>
+
+	<span class="image main" style="display: block; margin-bottom: 0;margin-top: 0em;">
+		<img src="images/sx_fb_img3.png" alt="" style="display: block; margin: 0; padding: 0;" />
+		</span>
+
+	<p>*We used an empirical field size threshold of 2.1 hectares to separate small and medium 
+		farms, and a threshold of 12 hectares to separate medium and large farms.</p>
+        
+		
+
+	<hr class="major" />
+	<h2 style="color:#e48bae;">Part 3: The Road Ahead — Yield Monitoring, Field Size Estimation, and Beyond</h2>
+	<p style="color: #222222; font-size: 1.3em; text-align: left; margin-top: 1.5em;"> 
+		Having a field boundary map enables a wide range of policy and science-oriented applications. 
+		For example, we can monitor changes in field size by district or any administrative unit (A), 
+		guide remote sensing efforts to assess field-level NDVI and crop health (C), and explore potential 
+		relationships between field size and land use stability (B and D). 
+		Panel D shows the degree of overlap in field boundaries across years (2018–2024), 
+		which we use as a proxy for land use stability. Our analysis reveals that, in Zambia, larger 
+		fields tend to be more stable over time, while smaller fields—often associated with shifting 
+		agriculture—exhibit less stability (B, where the y-axis represents stability).
+
+	</p>
+
+
+	<span class="image main"><img src="images/sx_fb_img4.png" alt="" /></span>
+
+						
+
+
+
+
+							<!-- Footer -->
+								<div id="footer">
+									<script>
+								var today = new Date();
+								var year = today.getFullYear();
+								document.writeln("Copyright &copy; " + year+" - Sitian Xiong");
+									 </script>
+								</div>
+
+							</div>
+						</div>
+	      </div>
+
+
+			<!-- Scripts -->
+				<script src="assets/js/jquery.min.js"></script>
+				<script src="assets/js/browser.min.js"></script>
+				<script src="assets/js/breakpoints.min.js"></script>
+				<script src="assets/js/util.js"></script>
+				<script src="assets/js/main.js"></script>
+
+		</body>
+	</html>

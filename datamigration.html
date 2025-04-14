@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Data Migration In PostgreSQL</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main0.css" />
+	</head>
+	<body class="is-preload">
+		<!-- <span class="image main"><img src="images/Flood.jpg" height="300" alt="FEMA flooding" /></span> -->
+		<div id="body-container">
+
+		<!-- Wrapper -->
+			<!-- <div id="wrapper"> -->
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<!-- Content -->
+								<section>
+									<header>
+										<a href="index.html" class="button">Back</a>
+
+										</br>
+										</br>
+										<h1 style="color: black font-weight: 400; " align="left">FEMA Emergency Management Data Migration In PostgreSQL</h1>
+									</header>
+									<p style= "font-size: 0.8em; text-align:left;">Yao-Ting Yao, Jessie Xu <br>Spatial Database Project </p>
+
+									<p>How many emergency response teams and federal grants does your hometown have for different disasters? Earthquakes, floods, coastal hurricane storms, tornados, tsunamis, volcanic eruptions, and winter storms are seven frequent disasters in the USA. This project provides essential information needed by federal and state emergency responders and the public to evaluate resource and federal grant allocation of emergency response.</p>
+									<a style="color: #e48bae;font-weight: bold;" href="https://github.com/YaoTingYao/FEMA_EMD_DB/blob/main/FEMA_EMD_DB">GitHub Repository: YaoTingYao/FEMA_EMD_DB</a>
+									</br>
+
+
+									<hr class="major" />
+									<h2 style="color:#e48bae;">Create FEMA Emergency Management dataset schema in pgAdmin</h2>
+									<p>We created the FEMA Emergency Management dataset schema containing the information of the National Risk Index (NRI), Community Emergency Response Team (CERT), and Emergency Management Performance Grants (EMPG) datasets. For mining processes, we chose the state level as our geographic unit. We mined the content, punctuation, and format from the raw datasets to accommodate the migration. Create schemas, tables, relations, and other components that are required for the construction of a relational database in PostgreSQL. Add a state abbreviation column for the EMPG table for joint connections.</p>
+
+
+									<head>
+									    <title>Slideshow Images</title>
+									    <style>
+									      .slider {
+									        width: 500px;
+									        height: 400px;
+									        background-color: yellow;
+									        margin-left: auto;
+									        margin-right: auto;
+									        margin-top: 0px;
+									        text-align: center;
+									        overflow: hidden;
+									      }
+									      .image-container {
+									        width: 1500px;
+									        background-color: pink;
+									        height: 400px;
+									        clear: both;
+									        position: relative;
+									        -webkit-transition: left 2s;
+									        -moz-transition: left 2s;
+									        -o-transition: left 2s;
+									        transition: left 2s;
+									      }
+									      .slide {
+									        float: left;
+									        margin: 0px;
+									        padding: 0px;
+									        position: relative;
+									      }
+									      #slide-1:target ~ .image-container {
+									        left: 0px;
+									      }
+									      #slide-2:target ~ .image-container {
+									        left: -500px;
+									      }
+									      #slide-3:target ~ .image-container {
+									        left: -1000px;
+									      }
+									      .buttons {
+									        position: relative;
+									        top: -20px;
+									      }
+									      .buttons a {
+									        display: inline-block;
+									        height: 15px;
+									        width: 15px;
+									        border-radius: 50px;
+									        background-color: lightcoral;
+									      }
+									    </style>
+									  </head>
+									  <body>
+									    <div class="slider">
+									      <span id="slide-1"></span>
+									      <span id="slide-2"></span>
+											<span id="slide-3"></span>
+									      <div class="image-container">
+									        <img src="images/DB1.jpg" class="slide" width="500" height="400" />
+									        <img src="images/DB3.jpg" class="slide" width="500" height="400" />
+											  <img src="images/DB5.jpg" class="slide" width="500" height="400" />
+									      </div>
+									      <div class="buttons">
+									        <a href="#slide-1"></a>
+									        <a href="#slide-2"></a>
+											  <a href="#slide-3"></a>
+									      </div>
+									    </div>
+									  </body>
+
+									<hr class="major" />
+
+									<h2 style="color:#e48bae;">Data Visualization- Bivariate Maps</h2>
+									<p>We visualize the distribution and relationships between risks and CERT numbers/ state funding with two bivariate maps. The application of FEMA data presents great potential for discovering emergency preparedness and response across the country.</p>
+                  <span class="image main"><img src="images/db2.png" alt="" /></span>
+									<p>This map shows relationship between national risk indices and the Emergency funding. Texas, New Jersey, Tennessee, Iowa, Kansas, and Alabama are present in brown colors, which means that these states have both high hazards risks and state emergency funding. Areas colored by khaki indicate higher funding and lower expected annual loss scores, like Maine, Massachusetts, Connecticut, and Delaware. While the purple areas have higher annual loss scores but much lower state funding, like Washington, Oklahoma, Louisiana, Missouri, Illinois, Mississippi, and Georgia.</p>
+                  <span class="image main"><img src="images/db1.png" alt="" /></span>
+                  <p>We also created a bivariate map to visualize the number of CERT programs responding to each disaster and the corresponding level of national risks (expected annual loss score) in each state. Observing the distribution of the level of risks, we found these two variables did not show a positive correlation for some disasters. For example, a negative correlation could be seen for the volcanic eruption response. See the purple areas from the top right map, there are only 4 volcanic eruption emergency response teams that are located in 4 different states. However, a higher risk is shown in many other states that have no response team. </p>
+
+								</section>
+								<!-- Footer -->
+									<div id="footer">
+										<script>
+									var today = new Date();
+									var year = today.getFullYear();
+									document.writeln("Copyright &copy; " + year+" - Yao-Ting Yao");
+										 </script>
+									</div>
+						</div>
+					</div>
+      </div>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

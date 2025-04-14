@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Hurricane Harvey Impact Analysis</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+    body {
+      font-family: sans-serif;
+      background-color: #fff;
+      color: #222;
+      line-height: 1.6;
+      margin: 2em;
+    }
+    h1, h2 {
+      color: #e48bae;
+    }
+    .dropcap::first-letter {
+      float: left;
+      font-size: 2.5em;
+      line-height: 1;
+      padding-right: 6px;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+    ul {
+      margin-left: 1.5em;
+    }
+    .section {
+      margin-bottom: 3em;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="button">Back</a>
+  <h1 align="center">Hurricane Harvey Impact Mapping Using Landsat Imagery and Vegetation Indices</h1>
+
+  <div class="section">
+    <p class="dropcap">
+      In response to the devastating impact of Hurricane Harvey on southern Texas, this project assesses flood extent and environmental change using Landsat 8 satellite imagery. Through land use/land cover (LULC) classification and vegetation index analysis, we examine how flooding altered the landscape across Houston and surrounding counties.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Objectives</h2>
+    <ul>
+      <li>Analyze land use/land cover change before and after Hurricane Harvey</li>
+      <li>Map flood-affected areas and assess vegetation degradation</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Data Sources</h2>
+    <p>Landsat 8 OLI imagery from April 6 and September 29, 2017, was used along with ESRI county shapefiles and ancillary sources such as Google Earth and NASA/USGS Harvey data portals.</p>
+  </div>
+
+  <div class="section">
+    <h2>Methods Overview</h2>
+    <ul>
+      <li><strong>Image Preprocessing:</strong> Subsetting, masking, and reflectance correction using TerrSet tools.</li>
+      <li><strong>Classification:</strong> Supervised classification (Maximum Likelihood and Neural Network) with custom land use schemes.</li>
+      <li><strong>Change Detection:</strong> Post-classification comparison and vegetation index differencing using NDWI and SAVI.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Key Findings</h2>
+    <ul>
+      <li>Flood extent was visible primarily along rivers and coastal zones.</li>
+      <li>Water and riparian forest areas increased post-Harvey, while forest/grassland and agricultural land declined.</li>
+      <li>Vegetation index analysis indicated localized degradation near rivers, but no broad-scale vegetation loss.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Conclusion</h2>
+    <p>
+      Combined post-classification and vegetation index results confirm measurable impacts of Hurricane Harvey on land use and vegetation structure. While some flood signals diminished by the time of image capture, residual changes, especially in riparian areas, are evident. The integration of supervised classification and index-based analysis proves effective for rapid disaster response and landscape monitoring.
+    </p>
+  </div>
+
+  <footer>
+    <hr>
+    <p style="font-size: 0.9em; color: #888;">&copy; <script>document.write(new Date().getFullYear())</script> Hurricane Harvey Impact Study | Remote Sensing Project</p>
+  </footer>
+
+</body>
+</html>
