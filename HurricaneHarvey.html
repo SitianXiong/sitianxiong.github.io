@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Hurricane Harvey Impact Mapping</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main0.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+    .dropcap {
+      color: #777;
+      font-size: 1.1em;
+      text-align: left;
+    }
+    .dropcap::first-letter {
+      float: left;
+      font-size: 2.5em;
+      line-height: 0.5;
+      padding-right: 6px;
+      font-weight: bold;
+      color: inherit;
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="is-preload">
+
+<div id="body-container">
+  <div id="main">
+    <div class="inner">
+      <section>
+        <header>
+          <a href="index.html" class="button">Back</a>
+          <br><br>
+          <h1 style="color: black; font-weight: 700;" align="center">
+            Hurricane Harvey Impact Mapping — A Remote Sensing Assessment of Flood and Vegetation Change
+          </h1>
+        </header>
+
+        <p id="last-modified" style="font-size: 1.2em; color: #666;"></p>
+        <script>
+          const modified = new Date(document.lastModified);
+          const formattedDate = modified.toLocaleDateString(undefined, {
+            year: 'numeric', month: 'long', day: 'numeric'
+          });
+          document.getElementById("last-modified").textContent = "Last updated: " + formattedDate;
+        </script>
+
+        <span class="image main"><img src="images/sx_hh_radar.png" alt="" /></span>
+
+        <p style="font-size: 0.9em; color: #777; margin-top: -3.5em; margin-bottom: 1.5em;">
+
+          *"Hurricane Harvey" image source: NOAA/Weather.gov
+        </p>
+
+        <p class="dropcap" style="color: #222222; font-size: 1.3em;">
+          Formed on August 17, 2017, Hurricane Harvey made landfall in Texas on August 25 as a 
+          Category 4 storm with wind speeds reaching 130 mph. It brought over 60 inches of rainfall 
+          to parts of southeastern Texas, causing catastrophic flooding. The storm affected tens of 
+          thousands of residents and resulted in an estimated $125 billion in damages.
+
+        </p>
+
+        <p style="color: #222222; font-size: 1.3em;">
+          As part of a remote sensing course project (Fall, 2017), this study uses Landsat imagery to examine 
+          flood inundation around Houston. By applying the SAVI and NDWI vegetation indices, 
+          we demonstrate how satellite data can support rapid damage assessment in the aftermath 
+          of extreme weather events.
+        </p>
+
+        <hr class="major" />
+        <h2 style="color:#e48bae;">Part 1: Objectives and Data</h2>
+        <p style="color: #222222; font-size: 1.3em;">We aimed to:</p>
+        <ul style="color: #222222; font-size: 1.3em;">
+          <li>Examine land use and vegetation change before and after Hurricane Harvey.</li>
+          <li>Assess the extent of flood-impacted areas and detect vegetation degradation using NDWI and SAVI indices.</li>
+        </ul>
+        <p style="color: #222222; font-size: 1.3em;">
+          This project uses Landsat 8 OLI_TIRS Level 1 imagery (Path 25, Row 40) with 30-meter 
+          resolution and bands 1–7, including false color composites (Bands 6, 5, 4), acquired 
+          on April 6 (pre-Harvey) and September 29 (post-Harvey). The imagery was downloaded 
+          from USGS Earth Explorer and GloVis. Although not ideal due to seasonal difference 
+          and acquisition timing, these scenes were the closest cloud-free options available. 
+          Additional data sources include ESRI county shapefiles, Google Earth, and NASA/USGS 
+          Hurricane Harvey data portals, which were used indirectly to support interpretation 
+          and improve contextual understanding. 
+          
+          <br><br>
+          **It should be noted that this project was completed early in my studies, 
+          under significant time pressure. The design and completeness 
+          are not perfect, as we will explain throughout the later parts of this document.**
+        </p>
+
+        <hr class="major" />
+        <h2 style="color:#e48bae;">Part 2: Methodology Overview</h2>
+        <p style="color: #222222; font-size: 1.3em;">
+          Preprocessing steps included subsetting the imagery, masking with 
+          county shapefiles, and applying reflectance correction using TerrSet. 
+          Supervised classification was performed using both the Maximum Likelihood 
+          Classification and the Neural Network (MLP) approach in TerrSet. 
+          For classification schemes <strong>(Table 1)</strong>, we came 
+          up with two through brainstorming, and they were implemented 
+          separately by different group members. We followed a conventional 
+          land cover schema (System 1) and used the Multilayer Perceptron (MLP) 
+          classifier to attempt to capture flood impact by tracking the 
+          loss of other land uses and the increase in water. Another group 
+          member used a second scheme (System 2) that incorporated a customized 
+          class called “water-impacted vegetation,” defined as vegetation under 
+          various inundation conditions, and applied the Maximum Likelihood 
+          classifier. This second scheme may more directly capture the intermediate 
+          forest–water mixture status. For the sake of time, the System 2 
+          classification map was not included in the final project deliverable.
+
+          <br><br>
+          Error assessment follows a random sampling of 50 locations and confusion matrix. 
+          We only had a chance to run the confusion matrix for the Maximum 
+          Likelihood result. The MLP classification used training samples to 
+          report accuracy, which likely overestimates accuracy by a considerable margin.
+
+        </p>
+        <p style="color: #222222; font-size: 1.3em;">
+          On top of Post-classification change detection, we also aplied vegetation 
+          indices (Normalized Difference Water Index, NDWI 
+          and Soil Adjusted Vegetation Index, SAVI) to identify flood and vegetation 
+          change. The NDWI detects surface water by contrasting green and 
+          near-infrared bands, while the Soil Adjusted Vegetation Index (SAVI) 
+          enhances vegetation signals by minimizing soil background effects. 
+          Together, they help highlight inundated and degraded areas 
+          beyond what classification alone can capture.
+        </p>
+
+
+        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 1.2em; color: #222; text-align: left;">
+          <caption style="caption-side: top; font-weight: bold; margin-bottom: 0.5em; text-align: left;">
+            Table 1. Comparison of Land Cover Classification Schemes (System 1 vs. System 2)
+          </caption>
+          <thead style="background-color: #f0f0f0;">
+            <tr>
+              <th>System 1</th>
+              <th>Explanation (System 1)</th>
+              <th>System 2</th>
+              <th>Explanation (System 2)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Water</td>
+              <td>Sea, inland lakes, pool</td>
+              <td>Water</td>
+              <td>Sea, inland lakes, pool</td>
+            </tr>
+            <tr>
+              <td>Forest/Pasture</td>
+              <td>Trees and grass</td>
+              <td>Forest/Pasture</td>
+              <td>Trees and grass</td>
+            </tr>
+            <tr>
+              <td>Agriculture</td>
+              <td>Both green and fallow (bare soil)</td>
+              <td>Water-Impacted Vegetation</td>
+              <td>Forest with flood inundation</td>
+            </tr>
+            <tr>
+              <td>Build-up</td>
+              <td>Urban and residential</td>
+              <td>Agriculture/Pasture</td>
+              <td>Shallow grass or forage grass</td>
+            </tr>
+            <tr>
+              <td>Bare Soil</td>
+              <td>Primarily fallow farmland</td>
+              <td>Build-up</td>
+              <td>Urban (commercial) and residential</td>
+            </tr>
+          </tbody>
+        </table>
+        
+
+        <hr class="major" />
+        <h2 style="color:#e48bae;">Part 3: Key Findings</h2>
+
+        <figure style="text-align: center; margin-bottom: 1.5em;">
+          <img src="images/sx_hh_cls.png" alt="" style="width: 100%;" />
+          <figcaption style="font-size: 1.2em; font-weight: bold; color: #222; margin-top: 0em; text-align: left;">
+            Figure 1. Land use classification result after Hurricane Harvey</figcaption>
+        </figure>
+        
+
+        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 1.2em; color: #222; text-align: left;">
+          <caption style="caption-side: top; font-weight: bold; margin-bottom: 0.5em; text-align: left;">
+            Table 2. Land Use Classification and Change Result by MLP
+          </caption>
+          <thead style="background-color: #f0f0f0;">
+            <tr>
+              <th>Class</th>
+              <th>Area of Pre-Harvey (ha)</th>
+              <th>Area of Post-Harvey (ha)</th>
+              <th>Area Increase (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Water</td>
+              <td>92,292.57</td>
+              <td>94,482.09</td>
+              <td>+2.37</td>
+            </tr>
+            <tr>
+              <td>Built-up</td>
+              <td>67,680.99</td>
+              <td>62,843.94</td>
+              <td>-7.15</td>
+            </tr>
+            <tr>
+              <td>Pasture/Agriculture</td>
+              <td>85,624.74</td>
+              <td>80,232.93</td>
+              <td>-6.30</td>
+            </tr>
+            <tr>
+              <td>Forest</td>
+              <td>22,710.24</td>
+              <td>26,119.62</td>
+              <td>+15.01</td>
+            </tr>
+            <tr>
+              <td>Bare Soil</td>
+              <td>13,345.56</td>
+              <td>17,975.52</td>
+              <td>+34.69</td>
+            </tr>
+          </tbody>
+        </table>
+        
+
+        <table border="1" style="border-collapse: collapse; width: 100%; font-size: 1.2em; color: #222; text-align: left;">
+          <caption style="caption-side: top; font-weight: bold; margin-bottom: 0.5em; text-align: left;">
+            Table 3. Land Use Classification and Change Result by Maximum Likelihood
+          </caption>
+          <thead style="background-color: #f0f0f0;">
+            <tr>
+              <th>Category</th>
+              <th>Legend</th>
+              <th>Pre-Harvey Area (ha)</th>
+              <th>Post-Harvey Area (ha)</th>
+              <th>Class Differencing (%)</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Water</td>
+              <td>81,352.98</td>
+              <td>85,389.57</td>
+              <td>+1.43</td>
+              <td>Increase</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Water-Impacted Vegetation</td>
+              <td>62,847.18</td>
+              <td>74,557.17</td>
+              <td>+4.16</td>
+              <td>Increase</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Forest/Grassland</td>
+              <td>82,725.30</td>
+              <td>73,723.86</td>
+              <td>-3.20</td>
+              <td>Decrease</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Agricultural Land</td>
+              <td>18,883.62</td>
+              <td>15,149.07</td>
+              <td>-1.33</td>
+              <td>Decrease</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Built-up Area</td>
+              <td>35,845.02</td>
+              <td>32,834.43</td>
+              <td>-1.07</td>
+              <td>Decrease</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p style="color: #222222; font-size: 1.3em;">
+
+          Classification accuracy for Maximum Likelihood is 84.62% on 
+          the pre-Harvey map and 86% on the post-Harvey map. For MLP, 
+          we only recorded a training accuracy of approximately 97%, 
+          indicating a good fit to the training data. The overall 
+          accuracy justifies the use of these maps to proceed with 
+          subsequent area analysis.
+
+        </p>
+
+
+        <div style="display: flex; justify-content: space-between; gap: 1em;">
+          <img src="images/sx_hh_water.png" alt="Water Change" style="width: 32%; height: auto;" />
+          <img src="images/sx_hh_ag.png" alt="Agriculture Change" style="width: 32%; height: auto;" />
+          <img src="images/sx_hh_forest.png" alt="Forest Change" style="width: 32%; height: auto;" />
+        </div>
+        <p style="font-size: 1.2em; font-weight: bold; color: #222; margin-top: 0em; text-align: left;">
+          Figure 2. Gains and losses in water, agriculture, and forest classes before and after Hurricane Harvey.
+        </p>
+        
+        <figure style="text-align: center; margin-bottom: 1.5em;">
+          <img src="images/sx_hh_VIs.png" alt="" style="width: 100%;" />
+          <figcaption style="font-size: 1.2em; font-weight: bold; color: #222; margin-top: 0em; text-align: left;">
+
+            Figure 3. Vegetation index changes expressed as multiples of standard deviation (left: NDWI, right: SAVI).
+ 
+          </figcaption>
+        </figure>
+
+        <ul style="color: #222222; font-size: 1.3em;">
+
+          <li>
+            Water area increased <span style="color: red;">▲</span>, 
+            as indicated by both the MLP and Maximum Likelihood classification 
+            results, with an estimated gain of about 2,189 ha (MLP) to 4,037 ha (Maximum Likelihood).
+            The gains were mostly along the shoreline of Houston and Galveston Island, with additional 
+            increases observed in Texas City and further inland near Missouri City and Pearland.
+          </li>
+            
+
+
+          <li> 
+
+            The Water-Impacted Vegetation class (System 2, Maximum Likelihood) increased <span style="color: red;">▲</span>
+            by 11,710 ha, representing an 18.63% increase from its baseline of 62,847 ha. 
+            It should be noted that the baseline is not zero, as this unique class was 
+            already present in the pre-Harvey map—likely representing existing water–vegetation mixture zones.
+
+          </li>
+
+          <li>Built-up areas declined <span style="color: blue;">▼</span> in both MLP and Maximum Likehood Classification. Indicating 
+            the impact to human livelihood. Two classifications had huge descripancy in the basedline of the Build-up,
+            MLP estimated 67,681 ha, which almost two times of 35,845 ha in Maximum Likehood. Despite so, the loss rate are about 
+            the same: 7.15% (MLP), 8.4% (Maximum Likelihood).
+          </li>
+
+          <li>
+            Agricultural land also declined <span style="color: blue;">▼</span> in both the MLP 
+            and Maximum Likelihood classifications. However, since the two systems differ 
+            essentially in definition—pasture/grassland was grouped under agriculture in System 1 
+            (MLP), but included with forest in System 2 (Maximum Likelihood)—the baselines are 
+            too different for direct comparison. Still, both classifications consistently show a decrease.
+          </li>
+
+          <li>Vegetation degradation <span style="color: blue;">▼</span> 
+            mostly occurred along rivers; SAVI and NDWI confirmed localized stress.</li>
+        </ul>
+
+
+
+        <hr class="major" />
+        <h2 style="color:#e48bae;">Part 4: Conclusion</h2>
+
+          <p style="color: #222222; font-size: 1.3em;">
+            Combining LULC classification with vegetation indices provides a practical 
+            approach for post-disaster assessment. Our results reveal consistent 
+            flood-related increases in water and inundated vegetation, along with 
+            declines in built-up and agricultural areas. Vegetation stress detected 
+            along rivers confirms localized ecological impact, highlighting the value 
+            of remote sensing for disaster response.
+          </p>
+
+
+          <h2 style="color:#e48bae;">Part 5: Things to Improve</h2>
+
+          <ul style="color: #222222; font-size: 1.3em; padding-left: 1.5em;">
+            <li>The definitions of the two classification systems were reasonable but could be made more consistent—especially for classes like agriculture and pasture/grassland.</li>
+            <li>From a design perspective, using red for "loss" and blue for "gain" may be more intuitive and visually effective.</li>
+            <li>Accuracy assessment was incomplete; 50 sample points were not sufficient, and class-wise accuracy metrics should be reported.</li>
+          </ul>
+<!--
+        <hr class="major" />
+        <h2 style="color:#e48bae;">Explore the Project</h2>
+        <ul style="color: #222222; font-size: 1.3em;">
+          <li>🔍 <a href="https://sitianxiong.github.io/harveyimpact.html" target="_blank" style="color:#e48bae;">Live Map</a> — browse classification outputs and index maps (static version).</li>
+          <li>📄 <a href="#" style="color:#e48bae;">Full Report PDF</a> — available soon or upon request.</li>
+        </ul>
+-->
+        <div id="footer">
+          <script>
+            var today = new Date();
+            var year = today.getFullYear();
+            document.writeln("Copyright &copy; " + year + " - Sitian Xiong");
+          </script>
+        </div>
+
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
